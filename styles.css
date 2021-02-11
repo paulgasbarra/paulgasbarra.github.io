@@ -33,28 +33,48 @@ color: #101010;
 /* The page is split between map and sidebar - the sidebar gets 1/3, map
 gets 2/3 of the page. You can adjust this to your personal liking. */
 .sidebar {
-position: absolute;
-width: 20%;
-height: 100%;
-top: 0;
-left: 0;
-overflow: hidden;
-border-right: 1px solid rgba(0, 0, 0, 0.25);
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .map {
-position: absolute;
-left: 20%;
-width:80%;
-top: 0;
-bottom: 0;
+    position: absolute;
+    left: 20%;
+    width:80%;
+    top: 0;
+    bottom: 0;
 }
 
 .heading {
-background: #fff;
-border-bottom: 1px solid #eee;
-height: 60px;
-line-height: 60px;
-padding: 0 10px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    height: 60px;
+    line-height: 60px;
+    padding: 0 10px;
 }
 
+.circle {
+    border-radius: 50%;
+    background-color: deepskyblue;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    opacity: 0;
+    animation: scaleIn 1s cubic-bezier(.36, .11, .89, .32);
+}
+
+@keyframes scaleIn {
+    from {
+      transform: scale(.5, .5);
+      opacity: .5;
+    }
+    to {
+      transform: scale(2.5, 2.5);
+      opacity: 0;
+    }
+  }
