@@ -65,7 +65,7 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
     height: 50px;
     opacity: 0;
     cursor:pointer;
-    animation: scaleIn 2s;
+    animation: scaleIn 1s;
     animation-timing-function: ease-out;
     
 }

@@ -113,12 +113,14 @@
           //addMarkers();
         });
         
+      
+
         function stepThroughViews(views, kioskLocations, map, mapboxgl){
           let i = 0;
           setInterval(function(){
             const interactionPoint = getKioskFromName(kioskLocations, views[i]);
             addInteractionPointToList(interactionPoint);
-            firePing(interactionPoint, map, mapboxgl);
+            firePing(interactionPoint, map, mapboxgl, views[i].Pageviews);
             i++;
           }, 1000)
         }
@@ -140,13 +142,35 @@
           }
         }
 
-        function firePing(point, map, mapboxgl){
+        function firePing(point, map, mapboxgl, pageviews){
+          createKeyFrame(pageviews)
           var circle = document.createElement('div');
           circle.className = 'circle';
+          createKeyFrame(pageviews);
+
           // make a marker for each feature and add to the map
           new mapboxgl.Marker(circle)
           .setLngLat(point.geometry.coordinates)
           .addTo(map);
+        }
+
+        function createKeyFrame(views){
+            const styleSheet = document.createElement('style'); 
+            styleSheet.type = 'text/css'; 
+            document.head.appendChild(styleSheet); 
+            styleSheet.sheet.insertRule(`@keyframes scaleIn {
+              from {
+                opacity: 1;
+                width: 0px;
+                height: 0px;
+
+              }
+              to {
+                opacity: 0;
+                width: ${views/100 * 200}px;
+                height: ${views/100 * 200}px;
+              }
+            }`, styleSheet.length)
         }
 
 
@@ -170,7 +194,7 @@
             new mapboxgl.Marker(el, { offset: [0, -23] })
               .setLngLat(marker.geometry.coordinates)
               .addTo(map);
-  
+            
             /**
              * Listen to the element and when it is clicked, do three things:
              * 1. Fly to the point
