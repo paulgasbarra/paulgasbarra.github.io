@@ -143,7 +143,6 @@
         function firePing(point, map, mapboxgl){
           var circle = document.createElement('div');
           circle.className = 'circle';
-          console.log('fire ping', point.geometry.coordinates)
           // make a marker for each feature and add to the map
           new mapboxgl.Marker(circle)
           .setLngLat(point.geometry.coordinates)
