@@ -8,6 +8,7 @@
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
     <script type="text/javascript" src="kiosks.js"></script> 
+    <script type="text/javascript" src="pageviews.js"></script> 
     <script type="text/javascript" src="convertToGeoJSON.js"></script> 
     <link href='styles.css' rel='stylesheet' />
 </head>
@@ -45,7 +46,10 @@
         
         let kioskLocations = convertToGeoJSON(kiosks);
         console.log(kioskLocations);
-       
+        console.log(views)
+
+    
+  
         var stores = {
           "type": "FeatureCollection",
           "features": [
@@ -318,6 +322,10 @@
               "data": kioskLocations
             }
           });
+
+
+          stepThroughViews(views);
+          
   
           /**
            * Add all the things to the page:
@@ -327,7 +335,36 @@
         //  buildLocationList(stores);
           //addMarkers();
         });
-  
+        
+        function stepThroughViews(views){
+          let i = 0;
+          const interactionPoint = getKioskFromName(views[i])
+          setInterval(function(){
+            const interactionPoint = getKioskFromName(views[i]);
+            addInteractionPointToList(interactionPoint);
+            console.log(interactionPoint)
+            i++;
+          }, 1000)
+        }
+
+        function getKioskFromName(view){
+          return kiosks.filter(kiosk => {
+            return  kiosk["Broadsign Display Unit ID"] === view["Display ID"];
+          })[0]
+        }
+
+        function addInteractionPointToList(interactionPoint){
+          const listing = document.createElement('div');
+          listing.textContent = (interactionPoint.Name);
+          let listings = document.getElementById('listings');
+          if (listings.childElementCount === 0){
+            listings.appendChild(listing)
+          } else {
+            listings.insertBefore(listing,listings.firstElementChild);
+          }
+        }
+
+
         /**
          * Add a marker to the map for every store listing.
         **/
