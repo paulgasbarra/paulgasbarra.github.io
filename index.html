@@ -113,9 +113,11 @@
           const location = view['Display Name']
           const datetime = view['Date Hour and Minute']
           const views = view.Pageviews;
+          const id = `${datetime}-view`;
           
           const listing = document.createElement('div');
           listing.className = 'listing';
+          listing.id = id;
 
           const locationDiv = createDiv('locationDiv', `Location: ${location}`)
           listing.appendChild(locationDiv)
@@ -126,7 +128,17 @@
           const viewsDiv = createDiv('viewsDiv', `Views: ${views}`)
           listing.appendChild(viewsDiv)
 
+          scheduleForCleanup(id);
+
           return listing;
+        }
+
+        function scheduleForCleanup(id){            
+          setTimeout(function(){
+            const el = document.getElementById(id);
+            el.remove();
+          }, 15000);
+    
         }
 
         function createDiv(className, text){
