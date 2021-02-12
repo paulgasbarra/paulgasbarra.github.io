@@ -92,6 +92,7 @@
 
         function addInteractionPointToList(interactionPoint){
           const listing = document.createElement('div');
+          listing.className = 'listing';
           listing.textContent = (interactionPoint.properties.name);
           let listings = document.getElementById('listings');
           if (listings.childElementCount === 0){
