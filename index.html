@@ -30,11 +30,14 @@
             }
           };
         }
-  
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZGlnaXRhbGFkb3BzaXhuIiwiYSI6ImNqYTJ2MWxsaTlwbTgzMnM0bm4xOHFraXYifQ.WGyCFfwet_HfOius2_c_MQ';
+        const ANIMATION_DURATION = `${2}s`;
+        const PING_PERIOD = 750;
+        const kioskLocations = convertToGeoJSON(kiosks);
+
         /**
          * Add the map to the page
         */
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGlnaXRhbGFkb3BzaXhuIiwiYSI6ImNqYTJ2MWxsaTlwbTgzMnM0bm4xOHFraXYifQ.WGyCFfwet_HfOius2_c_MQ';
         var map = new mapboxgl.Map({
           container: 'map',
           style: 'mapbox://styles/mapbox/light-v10',
@@ -44,37 +47,6 @@
           bearing: 29,
         });
         
-        let kioskLocations = convertToGeoJSON(kiosks);
-
-        var stores = {
-          "type": "FeatureCollection",
-          "features": [
-            {
-              "type": "Feature",
-              "geometry": {
-                "type": "Point",
-                "coordinates": [
-                  -77.034084142948,
-                  38.909671288923
-                ]
-              },
-              "properties": {
-                "phoneFormatted": "(202) 234-7336",
-                "phone": "2022347336",
-                "address": "1471 P St NW",
-                "city": "Washington DC",
-                "country": "United States",
-                "crossStreet": "at 15th St NW",
-                "postalCode": "20005",
-                "state": "D.C."
-              }
-            }
-          ]
-        }
-
-        
-
-  
         /**
          * Wait until the map loads to make changes to the map.
         */
@@ -83,11 +55,6 @@
            * This is where your '.addLayer()' used to be, instead
            * add only the source without styling a layer
           */
-          // map.addSource("places", {
-          //   "type": "geojson",
-          //   "data": stores
-          // });
-
           map.addLayer({
             "id": "locations",
             "type": "circle",
@@ -100,20 +67,8 @@
               "circle-color": "#00bfff",
             }
           });
-
-          stepThroughViews(views, kioskLocations, map, mapboxgl);
-          
-  
-          /**
-           * Add all the things to the page:
-           * - The location listings on the side of the page
-           * - The markers onto the map
-          */
-        //  buildLocationList(stores);
-          //addMarkers();
+          stepThroughViews(views, kioskLocations, map, mapboxgl);       
         });
-        
-      
 
         function stepThroughViews(views, kioskLocations, map, mapboxgl){
           let i = 0;
@@ -121,8 +76,12 @@
             const interactionPoint = getKioskFromName(kioskLocations, views[i]);
             addInteractionPointToList(interactionPoint);
             firePing(interactionPoint, map, mapboxgl, views[i].Pageviews);
-            i++;
-          }, 500)
+            if (i >= views.length - 1) {
+              i = 0;
+            } else {
+              i++
+            };
+          }, PING_PERIOD)
         }
 
         function getKioskFromName(kioskLocations, view){
@@ -143,10 +102,11 @@
         }
 
         function firePing(point, map, mapboxgl, pageviews){
-          createKeyFrame(pageviews)
-          var circle = document.createElement('div');
-          circle.className = 'circle';
-          createKeyFrame(pageviews);
+          const animationName = 'scaleIn'
+          const keyframeName = `${animationName}${pageviews}`;
+          const circle = createCircle();
+          createKeyFrameBasedOnViews(keyframeName, pageviews);
+          circle.style.animation = `${keyframeName} ${ANIMATION_DURATION}`;
 
           // make a marker for each feature and add to the map
           new mapboxgl.Marker(circle)
@@ -154,11 +114,16 @@
           .addTo(map);
         }
 
-        function createKeyFrame(views){
-            const styleSheet = document.createElement('style'); 
-            styleSheet.type = 'text/css'; 
-            document.head.appendChild(styleSheet); 
-            styleSheet.sheet.insertRule(`@keyframes scaleIn {
+        function createCircle(uniqueID) {
+          const circle = document.createElement('div');
+          circle.className = 'circle';
+          return circle;
+        }
+
+        function createKeyFrameBasedOnViews(name, views){
+          if (document.getElementById(`${name}`) === null) {
+            const styleSheet = createAndAddStyleSheet(name);
+            styleSheet.sheet.insertRule(`@keyframes ${name} {
               from {
                 opacity: 1;
                 width: 0px;
@@ -170,101 +135,18 @@
                 width: ${views/100 * 200}px;
                 height: ${views/100 * 200}px;
               }
-            }`, styleSheet.length)
+            }`, styleSheet.length);
+          }
         }
 
+        function createAndAddStyleSheet(name){
+            const styleSheet = document.createElement('style'); 
+            styleSheet.id = `${name}`
+            styleSheet.type = 'text/css'; 
+            document.head.appendChild(styleSheet);
+            return styleSheet; 
+        }
 
-        /**
-         * Add a marker to the map for every store listing.
-        **/
-        function addMarkers() {
-          /* For each feature in the GeoJSON object above: */
-          stores.features.forEach(function(marker) {
-            /* Create a div element for the marker. */
-            var el = document.createElement('div');
-            /* Assign a unique `id` to the marker. */
-            el.id = "marker-" + marker.properties.id;
-            /* Assign the `marker` class to each marker for styling. */
-            el.className = 'marker';
-            
-            /**
-             * Create a marker using the div element
-             * defined above and add it to the map.
-            **/
-            new mapboxgl.Marker(el, { offset: [0, -23] })
-              .setLngLat(marker.geometry.coordinates)
-              .addTo(map);
-            
-            /**
-             * Listen to the element and when it is clicked, do three things:
-             * 1. Fly to the point
-             * 2. Close all other popups and display popup for clicked store
-             * 3. Highlight listing in sidebar (and remove highlight for all other listings)
-            **/
-            el.addEventListener('click', function(e){
-              /* Fly to the point */
-              flyToStore(marker);
-              /* Close all other popups and display popup for clicked store */
-              createPopUp(marker);
-              /* Highlight listing in sidebar */
-              var activeItem = document.getElementsByClassName('active');
-              e.stopPropagation();
-              if (activeItem[0]) {
-                activeItem[0].classList.remove('active');
-              }
-              var listing = document.getElementById('listing-' + marker.properties.id);
-              listing.classList.add('active');
-            });
-          });
-        }
-  
-        /**
-         * Add a listing for each store to the sidebar.
-        **/
-        function buildLocationList(data) {
-          data.features.forEach(function(store, i){
-            /**
-             * Create a shortcut for `store.properties`,
-             * which will be used several times below.
-            **/
-            var prop = store.properties;
-  
-            /* Add a new listing section to the sidebar. */
-            var listings = document.getElementById('listings');
-            var listing = listings.appendChild(document.createElement('div'));
-            /* Assign a unique `id` to the listing. */
-            listing.id = "listing-" + prop.id;
-            /* Assign the `item` class to each listing for styling. */
-            listing.className = 'item';
-  
-            /* Add the link to the individual listing created above. */
-            var link = listing.appendChild(document.createElement('a'));
-            link.href = '#';
-            link.className = 'title';
-            link.id = "link-" + prop.id;
-            link.innerHTML = prop.address;
-  
-            /* Add details to the individual listing. */
-            var details = listing.appendChild(document.createElement('div'));
-            details.innerHTML = prop.city;
-            if (prop.phone) {
-              details.innerHTML += ' · ' + prop.phoneFormatted;
-            }
-
-          });
-        }
-  
-        /**
-         * Use Mapbox GL JS's `flyTo` to move the camera smoothly
-         * a given center point.
-        **/
-        function flyToStore(currentFeature) {
-          map.flyTo({
-            center: currentFeature.geometry.coordinates,
-            zoom: 15
-          });
-        }
-  
       </script>
 </body>
 </html>
