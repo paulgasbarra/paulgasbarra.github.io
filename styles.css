@@ -85,6 +85,7 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
     overflow: hidden;
     font-size: 12px;
     padding-left: 16px;
+    border-bottom: 1px solid #b3b3b3;
 }
 
 @keyframes startBlue {
@@ -93,10 +94,7 @@ gets 2/3 of the page. You can adjust this to your personal liking. */
     }
     50% {
         height: 66px;
-        background-color: deepskyblue;
-    }
-    100% {
-        background-color: white;
+        
     }
 }
 
