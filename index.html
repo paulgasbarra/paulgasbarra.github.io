@@ -13,13 +13,26 @@
     <link href='styles.css' rel='stylesheet' />
 </head>
 <body>
-    <div class='sidebar'>
-            <div class='heading'>
-                <h1>Location of Interaction</h1>
-            </div>
-            <div id='listings' class='listings'></div>
-        </div>
-    <div id="map" class="map"></div>
+  <div class="top-bar">
+      <div class="logo-bar">
+        <img class="logo" src="intersection-logo-side-white.png" />
+      </div>
+      <div class='title-bar'>Touchscreen Interaction Visualization</div>
+  </div>
+  <div class='sidebar'>
+      <div class="search-restraints">
+        <img class='fpo-search' src='FPO_pulldowns.png' />
+        <img class='fpo-search' src='' />
+        <img class='fpo-search' src='' />
+       
+      </div>
+
+      <div class='heading'>
+          <h3>Location of Interaction</h3>
+      </div>
+      <div id='listings' class='listings'></div>
+  </div>
+  <div id="map" class="map"></div>
   
     <script>
         // This will let you use the .remove() function later on
@@ -31,7 +44,7 @@
           };
         }
         const ANIMATION_DURATION = `${2}s`;
-        const PING_PERIOD = 750;
+        const PING_PERIOD = 1000;
         const kioskLocations = convertToGeoJSON(kiosks);
 
         /**
@@ -74,7 +87,7 @@
           let i = 0;
           setInterval(function(){
             const interactionPoint = getKioskFromName(kioskLocations, views[i]);
-            addInteractionPointToList(interactionPoint);
+            addInteractionPointToList(interactionPoint, views[i]);
             firePing(interactionPoint, map, mapboxgl, views[i].Pageviews);
             if (i >= views.length - 1) {
               i = 0;
@@ -90,16 +103,40 @@
           })[0]
         }
 
-        function addInteractionPointToList(interactionPoint){
-          const listing = document.createElement('div');
-          listing.className = 'listing';
-          listing.textContent = (interactionPoint.properties.name);
-          let listings = document.getElementById('listings');
+        function addInteractionPointToList(interactionPoint, view){
+          const listing = createListing(view)
           if (listings.childElementCount === 0){
             listings.appendChild(listing)
           } else {
             listings.insertBefore(listing,listings.firstElementChild);
           }
+        }
+
+        function createListing(view){
+          const location = view['Display Name']
+          const datetime = view['Date Hour and Minute']
+          const views = view.Pageviews;
+          
+          const listing = document.createElement('div');
+          listing.className = 'listing';
+
+          const locationDiv = createDiv('locationDiv', `Location: ${location}`)
+          listing.appendChild(locationDiv)
+
+          const dateTimeDiv = createDiv('dateTimeDiv', `Time: ${datetime}`)
+          listing.appendChild(dateTimeDiv)
+
+          const viewsDiv = createDiv('viewsDiv', `Views: ${views}`)
+          listing.appendChild(viewsDiv)
+
+          return listing;
+        }
+
+        function createDiv(className, text){
+          const div = document.createElement('div');
+          div.className = className;
+          div.textContent = text || null;
+          return div;
         }
 
         function firePing(point, map, mapboxgl, pageviews){
