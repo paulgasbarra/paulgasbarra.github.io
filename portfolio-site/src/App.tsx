@@ -2,7 +2,7 @@ import "./App.css";
 
 function App() {
   return (
-    <>
+    <div>
       <div className="header">
         <h1>Paul Gasbarra</h1>
         <div>
@@ -80,7 +80,7 @@ function App() {
           <img src="images/linkedin_profile.png" alt="Work Description" />
         </div>
       </section>
-    </>
+    </div>
   );
 }
 
