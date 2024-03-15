@@ -12,7 +12,7 @@ interface ProjectProps {
 
 const Project: React.FC<ProjectProps> = ({ project }) => {
   return (
-    <div>
+    <div className="project">
       <h1>{project.name}</h1>
       <img src={project.image} alt={project.imageAlt} />
       <p>{project.description}</p>

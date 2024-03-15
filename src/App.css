@@ -35,20 +35,28 @@ nav a {
   max-width: 150px;
   border-radius: 50%;
 }
-
-.work-experience {
+.projects-list {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  padding: 1em;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 1em 0;
 }
 
-.work-experience:nth-child(even) .work-desc {
+.project:nth-child(even) .work-desc {
   order: 2; /* Swap the order for even items */
 }
 
-.work-experience img {
+.project img {
   max-width: 300px;
 }
 
