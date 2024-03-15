@@ -1,0 +1,49 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "name": "guildcache",
+      "image": "images/guildcache.png",
+      "imageAlt": "guildcache logo",
+      "description": "A CRM for schools supported by philanthropy.",
+      "githubLink": "",
+      "websiteLink": ""
+    },
+    {
+      "id": 2,
+      "name": "The Muse",
+      "image": "images/guildcache.png",
+      "imageAlt": "The Muse logo",
+      "description": "Career advice and job listings.",
+      "githubLink": "",
+      "websiteLink": "www.themuse.com"
+    },
+    {
+      "id": 3,
+      "name": "Intersection",
+      "image": "images/guildcache.png",
+      "imageAlt": "guildcache logo",
+      "description": "Transit and retail interfaces powered by out of home advertising.",
+      "githubLink": "",
+      "websiteLink": "www.intersection.com"
+    },
+    {
+      "id": 4,
+      "name": "InstaHaiku",
+      "image": "images/instaHaiku.png",
+      "imageAlt": "instaHaiku picture",
+      "description": "A robot that writes haiku.",
+      "githubLink": "",
+      "websiteLink": ""
+    },
+    {
+      "id": 5,
+      "name": "Dragons Before Dinner",
+      "image": "images/dragonsBeforeDinner.png",
+      "imageAlt": "picture of a wizard",
+      "description": "Adventure Card Game.",
+      "githubLink": "",
+      "websiteLink": ""
+    }
+  ]
+}
