@@ -1,15 +1,22 @@
+import { Link, Outlet } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
-import ProjectList from "./components/ProjectList";
-import projects from "./data/projects.json";
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <Header />
-      <ProjectList projects={projects.projects} />
-    </div>
+    <>
+      <div className="header">
+        <h1>Paul Gasbarra</h1>
+        <nav>
+          <Link to="/">Projects</Link>
+          {" | "}
+          <Link to="/resume">Resume</Link>
+          {" | "}
+          <Link to="/about">About Me</Link>
+          {" | "}
+          <Link to="/contact">Contact</Link>
+        </nav>
+      </div>
+      <Outlet />
+    </>
   );
 }
-
-export default App;

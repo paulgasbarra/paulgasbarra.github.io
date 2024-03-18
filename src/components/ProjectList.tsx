@@ -11,11 +11,30 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
 
   return (
     <div className="project-list">
-      <div className="divider">Projects</div>
-      <div className="categories">
-        <button onClick={() => setCategory(null)}>All</button>
-        <button onClick={() => setCategory("work")}>Work</button>
-        <button onClick={() => setCategory("side")}>Side</button>
+      <div className="projects-header">
+        <h1>Projects</h1>
+        <div className="categories">
+          <div
+            className={category === null ? "selected" : ""}
+            onClick={() => setCategory(null)}
+          >
+            All
+          </div>
+          {" | "}
+          <div
+            className={category === "work" ? "selected" : ""}
+            onClick={() => setCategory("work")}
+          >
+            Professional
+          </div>
+          {" | "}
+          <div
+            className={category === "side" ? "selected" : ""}
+            onClick={() => setCategory("side")}
+          >
+            Personal
+          </div>
+        </div>
       </div>
       <div className="projects">
         {projects &&

@@ -1,18 +1,23 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0.5rem;
+  font-family: "Lato", Arial, sans-serif;
   display: flex;
   flex-direction: column;
+  padding-top: 80px;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: fixed;
+  top: 0;
+  margin-bottom: 10px;
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  justify-items: center;
   padding: 1em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ccc;
+  z-index: 1000;
+  background-color: white;
 }
 
 .header h1 {
@@ -21,7 +26,6 @@ body {
 }
 
 nav {
-  margin-bottom: 1em;
 }
 
 nav a {
@@ -39,7 +43,6 @@ nav a {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  width: 100%;
   padding: 1em;
   gap: 0.5rem;
 }
@@ -64,15 +67,36 @@ nav a {
   order: 2; /* Swap the order for even items */
 }
 
+.projects-header {
+  position: sticky;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+.projects-header h1 {
+  justify-self: center;
+}
+
 .project img {
   max-width: 300px;
 }
 
-.divider {
-  font-size: 2em;
-  margin: 2em 0;
-  text-align: center;
-  width: 100%;
+.categories {
+  justify-self: end;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.25em;
+  margin: 1em 0;
+}
+
+.categories div {
+  cursor: pointer;
+}
+
+.selected {
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
