@@ -7,7 +7,8 @@
       "imageAlt": "guildcache logo",
       "description": "A CRM for schools supported by philanthropy.",
       "githubLink": "",
-      "websiteLink": ""
+      "websiteLink": "",
+      "category": "side"
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "imageAlt": "The Muse logo",
       "description": "Career advice and job listings.",
       "githubLink": "",
-      "websiteLink": "www.themuse.com"
+      "websiteLink": "www.themuse.com",
+      "category": "work"
     },
     {
       "id": 3,
@@ -25,7 +27,8 @@
       "imageAlt": "guildcache logo",
       "description": "Transit and retail interfaces powered by out of home advertising.",
       "githubLink": "",
-      "websiteLink": "www.intersection.com"
+      "websiteLink": "www.intersection.com",
+      "category": "work"
     },
     {
       "id": 4,
@@ -34,7 +37,8 @@
       "imageAlt": "instaHaiku picture",
       "description": "A robot that writes haiku.",
       "githubLink": "",
-      "websiteLink": ""
+      "websiteLink": "",
+      "category": "side"
     },
     {
       "id": 5,
@@ -43,7 +47,8 @@
       "imageAlt": "picture of a wizard",
       "description": "Adventure Card Game.",
       "githubLink": "",
-      "websiteLink": ""
+      "websiteLink": "",
+      "category": "side"
     }
   ]
 }

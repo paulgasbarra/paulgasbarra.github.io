@@ -6,6 +6,7 @@ type Project = {
   description: string;
   githubLink: string;
   websiteLink: string;
+  category: string;
 };
 
 export type { Project };

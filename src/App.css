@@ -38,6 +38,15 @@ nav a {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  padding: 1em;
+  gap: 0.5rem;
+}
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
   width: 100%;
   padding: 1em;
   gap: 0.5rem;
