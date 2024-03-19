@@ -49,5 +49,3 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
 };
 
 export default ProjectList;
-
-// if project.category == category and category != "All"

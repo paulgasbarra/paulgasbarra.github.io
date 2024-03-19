@@ -15,9 +15,12 @@ body {
   align-items: center;
   justify-items: center;
   padding: 1em;
+  padding-left: 10%;
+  padding-right: 10%;
   border-bottom: 1px solid #ccc;
   z-index: 1000;
   background-color: white;
+  box-sizing: border-box;
 }
 
 .header h1 {
@@ -97,6 +100,11 @@ nav a {
 
 .selected {
   text-decoration: underline;
+}
+
+.resume {
+  padding-right: 10%;
+  padding-left: 10%;
 }
 
 @media (max-width: 768px) {
