@@ -108,19 +108,37 @@ const Resume = () => {
           </ul>
         </article>
         <article>
-          Freelance Web Content Creation June 2012 — April 2014 2U - Used
-          hypertext markup to transcribe and sync university video lectures into
-          a proprietary CMS. Foodler.com – Crafted compelling copy promoting
-          partner restaurants. Calibrated geo-location coordinates to fine-tune
-          restaurant delivery areas.
+          <h3>Various - Freelance Web Content Creator</h3>
+          <p>June 2012 — April 2014</p>
+          <ul>
+            <li>
+              2U - Used hypertext markup to transcribe and sync university video
+              lectures into a proprietary CMS.{" "}
+            </li>
+            <li>
+              Foodler.com – Crafted compelling copy promoting partner
+              restaurants. Calibrated geo-location coordinates to fine-tune
+              restaurant delivery areas.
+            </li>
+          </ul>
         </article>
         <article>
-          Blue State Digital Web Project Manager July 2013 — February 2014
-          Managed teams creating and improving world-class web platforms for
-          Tier 1 clients including American Express and NBC Universal Guided
-          projects using both agile and waterfall management methodologies Built
-          out project timelines, collected resources, and followed up on task
-          progress
+          <h3>Blue State Digital - Web Project Manager</h3>
+          <p>July 2013 — February 2014</p>
+          <ul>
+            <li>
+              Managed teams creating and improving world-class web platforms for
+              Tier 1 clients including American Express and NBC Universal
+            </li>
+            <li>
+              Guided projects using both agile and waterfall management
+              methodologies
+            </li>
+            <li>
+              Built out project timelines, collected resources, and followed up
+              on task progress
+            </li>
+          </ul>
         </article>
       </section>
 
